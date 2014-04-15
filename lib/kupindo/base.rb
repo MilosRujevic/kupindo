@@ -4,9 +4,15 @@ class Kupindo
       target.extend(ClassMethods)
     end
 
+    attr_accessor :raw
+
+    def initialize raw
+      @raw = raw
+    end
+
     module ClassMethods
       def load_from hash
-        item = self.new
+        item = self.new(hash)
         (@string_attrs || []).each do |attr|
           if val = hash[attr.to_s]
             item.send("#{attr}=", val)
